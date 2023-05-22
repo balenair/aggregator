@@ -1,0 +1,33 @@
+version: '2'
+volumes:
+    influx-data:
+    dashboard-data:
+    agg-data:
+    mosquitto-config:
+services:
+  influxdb:
+    restart: always
+    image: influxdb:1.8.10
+    volumes:
+        - 'influx-data:/var/lib/influxdb'
+  dashboard:
+    build: ./dashboard
+    restart: always
+    volumes:
+        - 'dashboard-data:/data'
+    ports:
+        - '80'
+  connector:
+    image: bh.cr/balenalabs/connector-amd64 # where <arch> is one of aarch64, armv7hf or amd64
+    restart: always
+    labels:
+      io.balena.features.balena-api: '1' # necessary to discover services
+      io.balena.features.supervisor-api: 1  # necessary to discover services in local mode
+    privileged: true # necessary to change container hostname
+    environment:
+      MQTT_INPUT_STRINGS_FIELDS: device,dominant 
+  mqtt:
+    image: eclipse-mosquitto:1.6.15
+    ports:
+      - "1883:1883"
+    restart: always
