@@ -1,0 +1,33 @@
+name: balenAir-Aggregator
+type: sw.application
+description: >-
+  Aggregate air quality readings from multiple Balenair devices
+
+post-provisioning: >-
+  ## Usage instructions
+
+  **Application download**
+
+  Once you power up your device you'll need to allow some time for it to download the application, this typically takes 5-10 minutes but it can take more depending on your internet connection and what device you are using.
+
+  **Usage**
+
+  When the application has been downloaded, enable the public URL and browse to the dashboard. See the readme for how to associate your devices with the aggregator.
+
+assets:
+  repository:
+    type: blob.asset
+    data:
+      url: 'https://github.com/balenair/aggregator'
+  logo:
+    type: blob.asset
+    data:
+      url: >-
+        https://raw.githubusercontent.com/balenair/aggregator/main/logo.png
+data:
+  defaultDeviceType: generic-amd64
+  supportedDeviceTypes:
+    - genericx86-64-ext
+    - intel-nuc
+    
+version: 1.0.0
