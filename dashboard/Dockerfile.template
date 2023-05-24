@@ -56,6 +56,6 @@ COPY ./entry.sh .
 
 COPY ./*.py ./
 
-COPY VERSION ./
+#COPY VERSION ./
 
 CMD ["sh","./entry.sh"]
