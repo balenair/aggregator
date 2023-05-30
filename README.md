@@ -15,6 +15,8 @@ Alternatively, you can clone this repo to your development machine and use the [
 
 Once you have your Aggregator running, you need to configure your Balenair devices to publish their AQI to it. Either using a fleet variable or per-device, add the `AGG_ADDRESS` variable to your Balenair with a value of the Aggregator's IP address. This will be straightforward when the Aggregator is on the same network as the Balenair devices. If the Aggregator is on a different network, you'll need to make sure it is publicly reachable. This may entail using port-forwarding or hosting the device on a cloud server such as an AWS AMI. If you place the Aggregator on a different network, see the security section below.
 
+The Balenair device also supports the following variables: `AGG_USERNAME`, `AGG_PASSWORD`, and `AGG_PORT` (default is 1883) should you want to specify these values.
+
 ## How it works
 
 The aggregator is built out of [balena Blocks](https://github.com/balenablocks) which are drop-in pieces of functionality. The MQTT service receives data from the Balenair devices which is picked up by the [Connector block](https://github.com/balena-labs-projects/connector) and stored in a local InfluxDB database. The [Dashboard block](https://github.com/balena-labs-projects/dashboard) sees this data and pulls it into the defualt dashboard. This simple dashboard will list any device's air quality index that is detected, and since it groups on the topic name (which includes the device name) it will dynamically add or delete devices as needed. Note that the Dashboard block is only available prebuilt for armv7 so we build it here manually with a few slight modifications.
